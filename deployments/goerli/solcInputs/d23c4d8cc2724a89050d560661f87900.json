@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/MyMappings.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\ncontract MyMappings {\n    mapping(uint256 => Book) public books;\n    mapping(address => mapping(uint256 => Book)) public myBooks;\n\n    address private user;\n\n    struct Book {\n        string title;\n        string author;\n    }\n\n    constructor(address _user) {\n        user = _user;\n    }\n\n    function addBook(\n        uint256 _id,\n        string memory _title,\n        string memory _author\n    ) public {\n        books[_id] = Book(_title, _author);\n    }\n\n    function addMyBook(\n        uint256 _id,\n        string memory _title,\n        string memory _author\n    ) public {\n        myBooks[msg.sender][_id] = Book(_title, _author);\n    }\n\n    function getUser() external view returns (address) {\n        return user;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
